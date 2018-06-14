@@ -28,8 +28,9 @@ D:\>cd D:\nginx\nginx-1.13.6
 
 D:\nginx\nginx-1.13.6>nginx-service.exe install
 ```
-```
+
 注：
+```
 卸载  nginx-service.exe uninstall
 
 停止  nginx-service.exe stop
