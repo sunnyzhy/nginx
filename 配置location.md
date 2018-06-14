@@ -14,8 +14,8 @@
 # 以root方式设置资源路径
 ```
 location /img/ {
-  root /var/www/image;
-  autoindex on;
+    root       /var/www/image;
+    autoindex  on;
 }
 ```
 当输入 localhost:80/img/ 时，会访问本机的 /var/www/image/img/ 目录
@@ -23,8 +23,8 @@ location /img/ {
 # 以alias 方式设置资源路径
 ```
 location /img/ {
-  alias /var/www/image/;
-  autoindex on;
+    alias      /var/www/image/;
+    autoindex  on;
 }
 ```
 当输入 localhost:80/img/ 时，会访问本机的 /var/www/image/ 目录
