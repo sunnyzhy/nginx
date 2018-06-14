@@ -37,3 +37,6 @@ D:\nginx\nginx-1.13.6>nginx-service.exe install
 
 启动  nginx-service.exe start
 ```
+
+4. 浏览
+在浏览器的地址栏中输入 http://localhost/ ，就会有nginx的欢迎界面 Welcome to nginx!
