@@ -1,6 +1,6 @@
 # nginx指定文件路径有两种方式 root 和 alias
 在 nginx.conf 中，添加 location 配置
-···
+```
  server {
         listen       80;
         server_name  localhost;
@@ -9,12 +9,12 @@
             index  index.html index.htm;
         }
     }
-···
+```
 
 # 以root方式设置资源路径
 ```
 location /img/ {
-	root /var/www/image;
+  root /var/www/image;
   autoindex on;
 }
 ```
@@ -23,7 +23,7 @@ location /img/ {
 # 以alias 方式设置资源路径
 ```
 location /img/ {
-	alias /var/www/image/;
+  alias /var/www/image/;
   autoindex on;
 }
 ```
