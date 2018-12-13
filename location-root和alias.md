@@ -30,12 +30,10 @@ location /img/ {
 当输入 localhost:80/img/ 时，会访问本机的 /var/www/image/ 目录
 
 # 注意
-```
-1.使用 alias 时，目录名后面一定要加 "/"
+1. **使用 alias 时，目录名后面一定要加 "/"**
 
-2.使用 alias 标签的目录块中不能使用 rewrite 的 break
+2. **使用 alias 标签的目录块中不能使用 rewrite 的 break**
 
-3.alias 在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用
+3. **alias 在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用**
 
-4.alias 只能位于 location 块中
-```
+4. **alias 只能位于 location 块中**
