@@ -13,7 +13,7 @@
 
 # 以root方式设置资源路径
 ```
-location /img/ {
+location /img {
     root       /var/www/image;
     autoindex  on;
 }
@@ -22,7 +22,7 @@ location /img/ {
 
 # 以alias 方式设置资源路径
 ```
-location /img/ {
+location /img {
     alias      /var/www/image/;
     autoindex  on;
 }
