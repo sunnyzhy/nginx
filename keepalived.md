@@ -3,7 +3,7 @@
 [keepalived 官网](https://www.keepalived.org/ "keepalived")
 
 ### 1. 安装依赖
-```
+```bash
 # yum -y install gcc
 
 # yum install -y openssl openssl-devel
@@ -12,7 +12,7 @@
 ```
 
 ### 2. 安装 keepalived
-```
+```bash
 # cd /usr/local
 
 # tar -zxvf keepalived-2.0.20.tar.gz
@@ -27,7 +27,7 @@
 ```
 
 ### 3. 配置 keepalived 启动项
-```
+```bash
 # mkdir /etc/keepalived/
 
 # cp /usr/local/keepalived-2.0.20/etc/keepalived/keepalived.conf /etc/keepalived/
@@ -38,7 +38,7 @@
 ```
 
 ### 4. 编辑 keepalived.conf
-```
+```bash
 # ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -83,7 +83,7 @@ vrrp_instance VI_1 {
 ```
 
 ### 5. 启动 keepalived
-```
+```bash
 # systemctl start keepalived
 
 # systemctl status keepalived
@@ -114,7 +114,7 @@ Hint: Some lines were ellipsized, use -l to show in full.
 **active (running) 说明 keepalived 正在运行。**
 
 ### 6. 验证 keepalived
-```
+```bash
 # ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
