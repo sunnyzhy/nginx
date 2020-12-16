@@ -2,7 +2,7 @@
 [nginx 官网](http://nginx.org/en/download.html "nginx")
 
 ## 1. 安装依赖库
-``` javascript
+``` bash
 # yum -y install gcc-c++
 
 # yum -y install pcre*
@@ -15,7 +15,7 @@
 ```
 
 ## 2. 安装 nginx
-``` javascript
+``` bash
 # cd /usr/local
 
 # tar -zxvf nginx-1.18.0.tar.gz
@@ -30,7 +30,7 @@
 ```
 
 ## 3. 配置 nginx 开机启动
-```
+```bash
 # cd /lib/systemd/system/
 
 # vim nginx.service
@@ -52,7 +52,7 @@ WantedBy=multi-user.target
 ```
 
 ## 4. 启动nginx服务
-``` javascript
+``` bash
 # systemctl start nginx
 
 # ps -ef | grep nginx
@@ -64,11 +64,11 @@ root       8704   3321  0 14:48 pts/1    00:00:00 grep --color=auto nginx
 Welcome to nginx!
 
 ## 5. 重启nginx服务
-``` javascript
+``` bash
 # systemctl restart nginx
 ```
 
 ## 6. 停止nginx服务
-``` javascript
+``` bash
 # systemctl stop nginx
 ```
