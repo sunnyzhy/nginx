@@ -5,10 +5,6 @@
 ``` bash
 # yum -y install gcc-c++
 
-# yum -y install pcre*
-
-# yum -y install zlib*
-
 # yum -y install pcre pcre-devel
 
 # yum -y install zlib zlib-devel
