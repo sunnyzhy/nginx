@@ -1,64 +1,74 @@
-# 下载
-http://nginx.org/en/download.html
-```
-Nginx官网提供了三个类型的版本
-Mainline version：Mainline 是 Nginx 目前主力在做的版本，可以说是开发版
-Stable version：最新稳定版，生产环境上建议使用的版本
-Legacy versions：遗留的老版本的稳定版
-```
+# nginx
+[nginx 官网](http://nginx.org/en/download.html "nginx")
 
-# 安装依赖库
+## 1. 安装依赖库
 ``` javascript
 # yum -y install gcc-c++
 
 # yum -y install pcre*
 
 # yum -y install zlib*
+
+# yum -y install pcre pcre-devel
+
+# yum -y install zlib zlib-devel
 ```
 
-# 解压
+## 2. 安装 nginx
 ``` javascript
-# mkdir -p /usr/local/nginx/tar.gz
+# cd /usr/local
 
-# cd /usr/local/nginx/tar.gz
+# tar -zxvf nginx-1.18.0.tar.gz
 
-# tar -zxvf nginx-1.12.2.tar.gz
+# mv nginx-1.18.0 nginx-1.18.0-install
 
-# cd nginx-1.12.2
+# cd nginx-1.18.0-install
+
+# ./configure --prefix=/usr/local/nginx-1.18.0
+
+# make && make install
 ```
 
-# 编译 & 安装
-``` javascript
-# ./configure --prefix=/usr/local/nginx
+## 3. 配置 nginx 开机启动
+```
+# cd /lib/systemd/system/
 
-# make
+# vim nginx.service
+[Unit]
+Description=nginx 
+After=network.target 
+   
+[Service] 
+Type=forking 
+ExecStart=/usr/local/nginx-1.18.0/sbin/nginx
+ExecReload=/usr/local/nginx-1.18.0/sbin/nginx reload
+ExecStop=/usr/local/nginx-1.18.0/sbin/nginx quit
+PrivateTmp=true 
+   
+[Install] 
+WantedBy=multi-user.target
 
-# make install
+# systemctl enable nginx
 ```
 
-# 启动nginx服务
+## 4. 启动nginx服务
 ``` javascript
-# cd /usr/local/nginx/sbin
+# systemctl start nginx
 
-# ./nginx
-```
-
-# 查看nginx进程
-``` javascript
 # ps -ef | grep nginx
-root     31586     1  0 10:26 ?        00:00:00 nginx: master process ./nginx
-nobody   31587 31586  0 10:26 ?        00:00:00 nginx: worker process
-root     31592 28966  0 10:27 pts/2    00:00:00 grep nginx
+root       8701      1  0 14:47 ?        00:00:00 nginx: master process /usr/local/nginx-1.18.0/sbin/nginx
+nobody     8702   8701  0 14:47 ?        00:00:00 nginx: worker process
+root       8704   3321  0 14:48 pts/1    00:00:00 grep --color=auto nginx
 ```
 在浏览器的地址栏中输入http://localhost/ ，就会有nginx的欢迎界面
 Welcome to nginx!
 
-# 重启nginx服务
+## 5. 重启nginx服务
 ``` javascript
-# ./nginx -s reload
+# systemctl restart nginx
 ```
 
-# 停止nginx服务
+## 6. 停止nginx服务
 ``` javascript
-# ./nginx -s stop
+# systemctl stop nginx
 ```
