@@ -6,7 +6,7 @@
 ```bash
 # yum -y install gcc
 
-# yum install -y openssl openssl-devel
+# yum -y install openssl openssl-devel
 
 # yum -y install libnl libnl-devel
 ```
