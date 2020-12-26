@@ -81,7 +81,7 @@ global_defs {
    router_id node_106
 }
 
-vrrp_script check_mysql {
+vrrp_script check_mysql {                     # 定义监测脚本
     script "/usr/local/script/check_mysql.sh" # 监测进程的 shell 脚本
     interval 5                                # 脚本执行间隔，每 5s 检测一次
     weight -5                                 # 检测失败（脚本返回非0），则优先级变更为 -5
@@ -102,7 +102,7 @@ vrrp_instance VI_1 {
     virtual_ipaddress {
         192.168.197.100
     }
-    track_script {
+    track_script {                            # 调用监测脚本
         check_mysql
     }
 }
