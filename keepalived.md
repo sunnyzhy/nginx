@@ -55,28 +55,20 @@
 
 # vim /etc/keepalived/keepalived.conf
 global_defs {
-   # 路由id，主备节点不能相同
-   router_id node_03
+   router_id node_03     # 路由 id，主备节点不能相同
 }
 
 vrrp_instance VI_1 {
-    # 指定 keepalived 的角色，MASTER 为主，BACKUP 为备
-    state MASTER
-    # 指定监测的网卡，可以使用 ifconfig 或 ip a 进行查看
-    interface enp4s0
-    # 虚拟路由的 id，主备节点需要设置为相同
-    virtual_router_id 51
-    # 优先级，主节点的优先级需要设置比备份节点高
-    priority 100
-    # 设置主备之间的心跳检测时间，单位为秒
-    advert_int 1
-    # 定义验证类型和密码
-    authentication {
+    state MASTER         # 指定 keepalived 的角色，MASTER 为主，BACKUP 为备
+    interface enp4s0     # 指定监测的网卡，可以使用 ifconfig 或 ip a 进行查看
+    virtual_router_id 51 # 虚拟路由的 id，主备节点需要设置为相同
+    priority 100         # 优先级，主节点的优先级需要设置比备份节点高
+    advert_int 1         # 设置主备之间的心跳检测时间，单位为秒
+    authentication {     # 定义验证类型和密码
         auth_type PASS
         auth_pass 1111
     }
-    # 虚拟IP地址(VIP)，可以设置多个
-    virtual_ipaddress {
+    virtual_ipaddress {  # 虚拟IP地址(VIP)，可以设置多个
         20.0.0.116
     }
 }
