@@ -133,3 +133,8 @@ Hint: Some lines were ellipsized, use -l to show in full.
 ```
 
 在网卡 enp4s0 下已经添加了 20.0.0.116 的 VIP。
+
+### 7. 查看 keepalived 日志
+```bash
+# tail -f /var/log/messages
+```
