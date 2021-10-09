@@ -69,3 +69,7 @@ location [ 空格 | = | ~ | ~* |^~|!~ | !~* ] /uri/
    }
    ```
    上述配置，当访问 http://127.0.0.1/proxy/test.html 的时候，代理 URL 是 http://127.0.0.1:8080/proxy/test.html
+
+参考:
+
+[https://www.hangge.com/blog/cache/detail_2979.html](https://www.hangge.com/blog/cache/detail_2979.html 'Nginx - 反向代理location与proxy_pass配置规则总结')
