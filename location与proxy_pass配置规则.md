@@ -77,11 +77,11 @@ nginx 转发请求的伪代码:
 
 |请求|nginx 转发的请求|响应|
 |---|---|---|
-|http://20.0.3.107/test|http://20.0.3.107:8080/test|/test|
-|http://20.0.3.107/test/1|http://20.0.3.107:8080/test/1|/test/1|
-|http://20.0.3.107/test/1/2|http://20.0.3.107:8080/test/1/2|/test/1/2|
-|http://20.0.3.107/test1|http://20.0.3.107:8080/test1|/test1|
-|http://20.0.3.107/test1/2|http://20.0.3.107:8080/test1/2|/test1/2|
+|```http://localhost/test```|```http://localhost:8080/test```|/test|
+|```http://localhost/test/1```|```http://localhost:8080/test/1```|/test/1|
+|```http://localhost/test/1/2```|```http://localhost:8080/test/1/2```|/test/1/2|
+|```http://localhost/test1```|```http://localhost:8080/test1```|/test1|
+|```http://localhost/test1/2```|```http://localhost:8080/test1/2```|/test1/2|
 
 ### location 的末尾加了 /
 
@@ -97,12 +97,12 @@ nginx 转发请求的伪代码:
 
 |请求|nginx 转发的请求|响应|
 |---|---|---|
-|http://20.0.3.107/test|先经过 301 重定向到 http://localhost/test/ , 再转发到 http://20.0.3.107:8080/test|/test|
-|http://20.0.3.107/test/|http://20.0.3.107:8080/test|/test|
-|http://20.0.3.107/test/1|http://20.0.3.107:8080/test/1|/test/1|
-|http://20.0.3.107/test/1/2|http://20.0.3.107:8080/test/1/2|/test/1/2|
-|http://20.0.3.107/test1||404|
-|http://20.0.3.107/test1/2||404|
+|```http://localhost/test```|先经过 301 重定向到 ```http://localhost/test/``` , 再转发到 ```http://localhost:8080/test```|/test|
+|```http://localhost/test/```|```http://localhost:8080/test```|/test|
+|```http://localhost/test/1```|```http://localhost:8080/test/1```|/test/1|
+|```http://localhost/test/1/2```|```http://localhost:8080/test/1/2```|/test/1/2|
+|```http://localhost/test1```||404|
+|```http://localhost/test1/2```||404|
 
 ## proxy_pass 的末尾加了 /
 
@@ -134,11 +134,11 @@ nginx 转发请求的伪代码:
 
 |请求|nginx 转发的请求|响应|
 |---|---|---|
-|http://20.0.3.107/test|http://20.0.3.107:8080/|/|
-|http://20.0.3.107/test/1|http://20.0.3.107:8080//1|404|
-|http://20.0.3.107/test/1/2|http://20.0.3.107:8080//1/2|404|
-|http://20.0.3.107/test1|http://20.0.3.107:8080/1|/1|
-|http://20.0.3.107/test1/2|http://20.0.3.107:8080/1/2|/1/2|
+|```http://localhost/test```|```http://localhost:8080/```|/|
+|```http://localhost/test/1```|```http://localhost:8080//1```|404|
+|```http://localhost/test/1/2```|```http://localhost:8080//1/2```|404|
+|```http://localhost/test1```|```http://localhost:8080/1```|/1|
+|```http://localhost/test1/2```|```http://localhost:8080/1/2```|/1/2|
 
 ### location 的末尾加了 /
 
@@ -154,12 +154,12 @@ nginx 转发请求的伪代码:
 
 |请求|nginx 转发的请求|响应|
 |---|---|---|
-|http://20.0.3.107/test|先经过 301 重定向到 http://20.0.3.107/test/ , 再转发到 http://20.0.3.107:8080/|/|
-|http://20.0.3.107/test/|http://20.0.3.107:8080/|/|
-|http://20.0.3.107/test/1|http://20.0.3.107:8080/1|/1|
-|http://20.0.3.107/test/1/2|http://20.0.3.107:8080/1/2|/1/2|
-|http://20.0.3.107/test1||404|
-|http://20.0.3.107/test1/2||404|
+|```http://localhost/test```|先经过 301 重定向到 ```http://localhost/test/``` , 再转发到 ```http://localhost:8080/```|/|
+|```http://localhost/test/```|```http://localhost:8080/```|/|
+|```http://localhost/test/1```|```http://localhost:8080/1```|/1|
+|```http://localhost/test/1/2```|```http://localhost:8080/1/2```|/1/2|
+|```http://localhost/test1```||404|
+|```http://localhost/test1/2```||404|
 
 区别:
 
