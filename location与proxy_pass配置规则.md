@@ -163,7 +163,7 @@ nginx 转发请求的伪代码:
 
 区别:
 
-- location 的末尾不加 / , 类似于模糊匹配
-- location 的末尾加了 / , 类似于精确匹配
-- proxy_pass 的末尾不加 / , ```proxy_pass + location + (arr.length == 1 ? "" : url.split(location)[1])``` , 转发的请求不舍弃 location
-- proxy_pass 的末尾加了 / , ```proxy_pass + (arr.length == 1 ? "" : url.split(location)[1])``` , 转发的请求会舍弃 location
+- location 的末尾不加 ```/``` , 类似于模糊匹配
+- location 的末尾加了 ```/``` , 类似于精确匹配
+- proxy_pass 的末尾不加 ```/``` , ```proxy_pass + location + (arr.length == 1 ? "" : url.split(location)[1])``` , 转发的请求不舍弃 location
+- proxy_pass 的末尾加了 ```/``` , ```proxy_pass + (arr.length == 1 ? "" : url.split(location)[1])``` , 转发的请求会舍弃 location
