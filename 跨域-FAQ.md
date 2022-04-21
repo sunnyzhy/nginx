@@ -37,38 +37,44 @@
    add_header Access-Control-Allow-Credentials 'true';
    ```
 
-***解决办法***
+***解决办法 1***
 
-**如果服务端同时设置了 ```Access-Control-Allow-Origin: *``` 和 ````Access-Control-Allow-Credentials: true```，那么客户端无需再设置 ```withCredentials: true```**
+- 从 ```Access-Control-Allow-Credentials: true``` 入手， 用 ```Q3``` 的解决方法
 
-删除客户端请求时设置的 ```withCredentials: true```:
+   **如果服务端同时设置了 ```Access-Control-Allow-Origin: *``` 和 ````Access-Control-Allow-Credentials: true```，那么客户端无需再设置 ```withCredentials: true```**
 
-```ts
-const service = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API,
-  timeout: 10000 //,
-  // withCredentials: true
-})
-```
+   删除客户端请求时设置的 ```withCredentials: true```:
 
-或
+   ```ts
+   const service = axios.create({
+     baseURL: import.meta.env.VITE_APP_BASE_API,
+     timeout: 10000 //,
+     // withCredentials: true
+   })
+   ```
 
-```ts
-// axios.defaults.withCredentials = true
-```
+   或
 
-***注: 该解决方法同样适用于服务端的以下配置:***
+   ```ts
+   // axios.defaults.withCredentials = true
+   ```
 
-```conf
-add_header Access-Control-Allow-Origin $http_origin always;
-add_header Access-Control-Allow-Credentials 'true';
-```
+   ***注: 该解决方法同样适用于服务端的以下配置:***
 
-***也就是说，不管服务端的配置是 ```add_header Access-Control-Allow-Origin '*' always;add_header Access-Control-Allow-Credentials 'true';``` ，还是 ```add_header Access-Control-Allow-Origin $http_origin always;add_header Access-Control-Allow-Credentials 'true';``` ，只要删除客户端的配置 ```withCredentials: true```，就能解决跨域问题。***
+   ```conf
+   add_header Access-Control-Allow-Origin $http_origin always;
+   add_header Access-Control-Allow-Credentials 'true';
+   ```
+
+   ***也就是说，不管服务端的配置是 ```add_header Access-Control-Allow-Origin '*' always;add_header Access-Control-Allow-Credentials 'true';``` ，还是 ```add_header Access-Control-Allow-Origin $http_origin always;add_header Access-Control-Allow-Credentials 'true';``` ，只要删除客户端的配置 ```withCredentials: true```，就能解决跨域问题。***
+
+***解决办法 2***
+
+- 根据错误提示 "不能使用通配符 \*"， 用 ```Q4``` 的解决方法
 
 ## Q4. Access to XMLHttpRequest at 'http://192.168.0.101/jwt/token' from origin 'http://192.168.0.100'' has been blocked by CORS policy: Request header field access-token is not allowed by Access-Control-Allow-Headers in preflight response.
 
-***相当于把 Q3 问题里的 ```Access-Control-Allow-Origin '*'``` 里的通配符 ```*``` 改成了 ```$http_origin```（因为 Q3 的错误提示说明了 "不能使用通配符 *"）***
+***相当于把 Q3 问题里的 ```Access-Control-Allow-Origin '*'``` 里的通配符 ```*``` 改成了 ```$http_origin```（因为 Q3 的错误提示说明了 "不能使用通配符 \*"）***
 
 服务端:
 
@@ -95,11 +101,11 @@ const service = axios.create({
 
 ***解决办法***
 
-把 ```access-token``` 添加到配置服务端的 ```Access-Control-Allow-Headers``` 中，对于提示的其他不允许的字段，也都明确地添加进来:
+- 把 ```access-token``` 添加到配置服务端的 ```Access-Control-Allow-Headers``` 中，对于提示的其他不允许的字段，也都明确地添加进来:
 
-```conf
-add_header Access-Control-Allow-Origin $http_origin always;
-add_header Access-Control-Allow-Headers 'content-type,access-token';
-add_header Access-Control-Allow-Methods '*';
-add_header Access-Control-Allow-Credentials 'true';
-```
+   ```conf
+   add_header Access-Control-Allow-Origin $http_origin always;
+   add_header Access-Control-Allow-Headers 'content-type,access-token';
+   add_header Access-Control-Allow-Methods '*';
+   add_header Access-Control-Allow-Credentials 'true';
+   ```
