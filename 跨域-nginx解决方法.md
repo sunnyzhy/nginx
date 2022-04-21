@@ -95,7 +95,7 @@
 注:
 
 1. 从上述步骤可以看出， ```The 'Access-Control-Allow-Origin' header contains multiple values``` 所包含的值分别对应网关配置的 ```Access-Control-Allow-Origin``` 和 nginx 配置的  ```Access-Control-Allow-Origin```
-2. 关于服务端设置 Access-Control-Allow-Origin 的头信息
+2. 关于服务端 nginx 设置 Access-Control-Allow-Origin 的头信息:
    - ``add_header Access-Control-Allow-Origin '*' always;``: 允许所有的请求源
    - ``add_header Access-Control-Allow-Origin $http_origin always;``: 动态指定请求源，**推荐**
 
