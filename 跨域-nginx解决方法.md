@@ -10,7 +10,7 @@
             server_name  localhost;
 
             location /jwt {
-              add_header Access-Control-Allow-Origin '*' always;
+              add_header Access-Control-Allow-Origin $http_origin always;
               add_header Access-Control-Allow-Headers '*';
               add_header Access-Control-Allow-Methods '*';
               add_header Access-Control-Allow-Credentials 'true';
@@ -18,7 +18,7 @@
               	return 200;
               }
 
-              proxy_pass http://192.168.0.101:8060;
+              proxy_pass http://192.168.0.101:8765;
               proxy_set_header host $host;
               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               proxy_set_header X-Real-IP $remote_addr;
@@ -65,7 +65,7 @@
 浏览器控制台返回错误信息:
 
 ```
-Access to XMLHttpRequest at 'http://192.168.0.100/jwt/token' from origin 'http://localhost' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header contains multiple values 'http://localhost, *', but only one is allowed.
+Access to XMLHttpRequest at 'http://192.168.0.100/jwt/token' from origin 'http://localhost' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header contains multiple values 'http://localhost, http://localhost', but only one is allowed.
 ```
 
 ## 第一种分析
@@ -84,14 +84,14 @@ Access to XMLHttpRequest at 'http://192.168.0.100/jwt/token' from origin 'http:/
 
 spring-cloud-starter-gateway 跨域配置:
 
-- 当 ```headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, requestHeaders.getOrigin());``` 的时候，返回 ```The 'Access-Control-Allow-Origin' header contains multiple values 'http://localhost, *', but only one is allowed.```
-- 当 ```headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");``` 的时候，返回 ```The 'Access-Control-Allow-Origin' header contains multiple values '*, *', but only one is allowed.```
+- 当 ```headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, requestHeaders.getOrigin());``` 的时候，返回 ```The 'Access-Control-Allow-Origin' header contains multiple values 'http://localhost, http://localhost', but only one is allowed.```
+- 当 ```headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");``` 的时候，返回 ```The 'Access-Control-Allow-Origin' header contains multiple values '*, http://localhost', but only one is allowed.```
 
-可以看出， ```'http://localhost, *'``` 和 ```'*, *'``` 就是网关配置的 ```Access-Control-Allow-Origin``` 和 nginx 配置的  ```Access-Control-Allow-Origin```
+可以看出， 不管是 ```'http://localhost, http://localhost'```，还是 ```'http://localhost, *'```，分别对应网关配置的 ```Access-Control-Allow-Origin``` 和 nginx 配置的  ```Access-Control-Allow-Origin```
 
 ***原因***
 
-- 根据 ```The 'Access-Control-Allow-Origin' header contains multiple values 'http://localhost, *', but only one is allowed.```，可以看出 ```Access-Control-Allow-Origin``` 头检测到了多个值，也就是重复配置跨域了，比如在该场景中，既在 nginx 里配置了跨域，也在网关里配置了跨域。
+- 根据 ```The 'Access-Control-Allow-Origin' header contains multiple values 'http://localhost, http://localhost', but only one is allowed.```，可以看出 ```Access-Control-Allow-Origin``` 头检测到了多个值，也就是重复配置跨域了，比如在该场景中，既在 nginx 里配置了跨域，也在网关里配置了跨域。
 
 ***解决办法***
 
