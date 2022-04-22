@@ -23,13 +23,13 @@ access_log off; # 关闭访问日志
 
 ### 作用域
 
-access_log 的作用域包含以下:
+access_log 的作用域:
 
 - http
 - server
 - location
+- if in location
 - limit_except
-
 
 ### 基本用法
 
@@ -94,12 +94,9 @@ log_format combined '$remote_addr - $remote_user [$time_local] '
 
 ### 作用域
 
-log_format 的作用域包含以下:
+log_format 的作用域:
 
 - http
-- server
-- location
-- limit_except
 
 ### 基本用法
 
@@ -142,7 +139,7 @@ error_log logs/error.log error;
 
 ### 作用域
 
-error_log 的作用域包含以下:
+error_log 的作用域:
 
 - main
 - http
@@ -171,7 +168,7 @@ rewrite_log off;
 
 ### 作用域
 
-rewrite_log 的作用域包含以下:
+rewrite_log 的作用域:
 
 - http
 - server
@@ -202,7 +199,7 @@ open_log_file_cache max=N [inactive=time] [min_uses=N] [valid=time];
 
 ### 作用域
 
-open_log_file_cache 的作用域包含以下:
+open_log_file_cache 的作用域:
 
 - http
 - server
