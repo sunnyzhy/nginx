@@ -1,4 +1,4 @@
-# Nginx 日志
+# nginx 日志
 
 ## access_log
 
@@ -59,7 +59,7 @@ log_format name [escape=default|json] string ...;
 
 - name: 格式名称，在 access_log 中引用。默认的日志格式为 ```combined```。
 - escape: 设置变量中的字符编码方式是 json 还是 default，默认是 default。
-- string: 要定义的日志格式内容。该参数可以有多个。参数中可以使用 Nginx 变量。
+- string: 要定义的日志格式内容。该参数可以有多个。参数中可以使用 nginx 变量。
 
     log_format 中常用的变量：
 
