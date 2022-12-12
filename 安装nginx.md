@@ -37,8 +37,8 @@ After=network.target
 [Service] 
 Type=forking 
 ExecStart=/usr/local/nginx-1.18.0/sbin/nginx
-ExecReload=/usr/local/nginx-1.18.0/sbin/nginx reload
-ExecStop=/usr/local/nginx-1.18.0/sbin/nginx quit
+ExecReload=/usr/local/nginx-1.18.0/sbin/nginx -s reload
+ExecStop=/usr/local/nginx-1.18.0/sbin/nginx -s quit
 PrivateTmp=true 
    
 [Install] 
