@@ -125,11 +125,19 @@ curl http://20.0.3.101/test/
 
 ### x_forwarded_for
 
-简称 XFF 头，它代表客户端，也就是 HTTP 的请求端真实的 IP，只有在通过了 HTTP 代理或者负载均衡服务器时才会添加该项。
+简称 XFF 头，它代表客户端，也就是 HTTP 的请求端真实的 IP，只有在通过了 HTTP 代理或者负载均衡服务器时才会添加该项。记录请求的路由顺序。
 
 ### X-Real-IP
 
-当有多个代理时候，可以在第一个反向代理上配置 ```proxy_set_header X-Real-IP $remote_addr``` 获取真实客户端 IP
+当有多个代理时候，可以在第一个反向代理上配置 ```proxy_set_header X-Real-IP $remote_addr``` 获取真实客户端 IP。
+
+```conf
+# 第一层代理
+proxy_set_header X-Real-IP $remote_addr;
+
+# 后面的代理
+proxy_set_header X-Real-IP $x_real_ip;
+```
 
 ### 区别
 
