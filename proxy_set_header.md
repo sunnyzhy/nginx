@@ -108,14 +108,14 @@ curl http://20.0.3.101/test/
    - 如果是客户端发送请求到 nginx 服务端，那么 nginx 服务端 ```$remote_addr``` 获取的就是客户端 IP
    - 如果是 nginx 服务端 A 转发请求到 nginx 服务端 B，那么 nginx 服务端 B ```$remote_addr``` 获取的就是服务端 A 的 IP
 5. ```proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for``` 把请求头中的 ```X-Forwarded-For``` 与 ```$remote_addr``` 用逗号合并起来，如果请求头中没有 ```X-Forwarded-For```，则 ```$proxy_add_x_forwarded_for``` 为 ```$remote_addr```。 每经过一层反向代理，就在请求头 ```X-Forwarded-For``` 后追加上游服务器 IP。
-   公式:
-      - ```X-Forwarded-For``` = 上游服务器的 ```$http_x_forwarded_for``` + ```,``` + 上游服务器的 ```$remote_addr```
-   格式:
-      - ```real client ip, proxy ip 1, ... ,proxy ip N```
-   示例:
-      1. 在第一层反向代理服务器 ```20.0.3.101``` 中，```$remote_addr``` 是 ```20.0.3.107```，```$http_x_real_ip``` 是空，```$http_x_forwarded_for``` 是空（当前为第一层反向代理服务器，其上游服务器为空，所以 ```$http_x_forwarded_for``` 的值为空）
-      2. 在第二层反向代理服务器 ```20.0.3.102``` 中，```$remote_addr``` 是 ```20.0.3.101```，```$http_x_real_ip``` 是 ```20.0.3.107``` ，```$http_x_forwarded_for``` 是 ```20.0.3.107```（即第一层反向代理服务器的 ```$http_x_forwarded_for``` + 第一层反向代理服务器的 ```$remote_addr```）
-      3. 在第三层反向代理服务器 ```20.0.3.103``` 中，```$remote_addr``` 是 ```20.0.3.102```，```$http_x_real_ip``` 是 ```20.0.3.107``` ，```$http_x_forwarded_for``` 是 ```20.0.3.107, 20.0.3.101```（即第二层反向代理服务器的 ```$http_x_forwarded_for``` + 第二层反向代理服务器的 ```$remote_addr```）
+   - 公式:
+       - ```X-Forwarded-For``` = 上游服务器的 ```$http_x_forwarded_for``` + ```,``` + 上游服务器的 ```$remote_addr```
+   - 格式:
+       - ```real client ip, proxy ip 1, ... ,proxy ip N```
+   - 示例:
+       1. 在第一层反向代理服务器 ```20.0.3.101``` 中，```$remote_addr``` 是 ```20.0.3.107```，```$http_x_real_ip``` 是空，```$http_x_forwarded_for``` 是空（当前为第一层反向代理服务器，其上游服务器为空，所以 ```$http_x_forwarded_for``` 的值为空）
+       2. 在第二层反向代理服务器 ```20.0.3.102``` 中，```$remote_addr``` 是 ```20.0.3.101```，```$http_x_real_ip``` 是 ```20.0.3.107``` ，```$http_x_forwarded_for``` 是 ```20.0.3.107```（即第一层反向代理服务器的 ```$http_x_forwarded_for``` + 第一层反向代理服务器的 ```$remote_addr```）
+       3. 在第三层反向代理服务器 ```20.0.3.103``` 中，```$remote_addr``` 是 ```20.0.3.102```，```$http_x_real_ip``` 是 ```20.0.3.107``` ，```$http_x_forwarded_for``` 是 ```20.0.3.107, 20.0.3.101```（即第二层反向代理服务器的 ```$http_x_forwarded_for``` + 第二层反向代理服务器的 ```$remote_addr```）
 
 ## 总结
 
