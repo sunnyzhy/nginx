@@ -7,3 +7,9 @@
 
 - 解决
   将 nginx 的域注释掉即可，仅留 gateway 的跨域设置
+
+## location 本地目录时访问报 403
+
+1. 执行命令 ```ps aux | grep nginx```，如果 ```master process``` 和 ```worker process``` 的用户名不一样。
+2. 在 nginx.conf 的第一行添加 ```user  root;```
+3. 重启 nginx
