@@ -27,9 +27,7 @@
 
 ## 3. 配置 nginx 开机启动
 ```bash
-# cd /lib/systemd/system/
-
-# vim nginx.service
+# vim /etc/systemd/system/nginx.service
 [Unit]
 Description=nginx 
 After=network.target 
@@ -44,10 +42,16 @@ PrivateTmp=true
 [Install] 
 WantedBy=multi-user.target
 
+# systemctl daemon-reload
+```
+
+## 4. 设置开机自启动
+
+```bash
 # systemctl enable nginx
 ```
 
-## 4. 启动nginx服务
+## 5. 启动nginx服务
 ``` bash
 # systemctl start nginx
 
@@ -59,12 +63,12 @@ root       8704   3321  0 14:48 pts/1    00:00:00 grep --color=auto nginx
 在浏览器的地址栏中输入http://localhost/ ，就会有nginx的欢迎界面
 Welcome to nginx!
 
-## 5. 重启nginx服务
+## 6. 重启nginx服务
 ``` bash
 # systemctl restart nginx
 ```
 
-## 6. 停止nginx服务
+## 7. 停止nginx服务
 ``` bash
 # systemctl stop nginx
 ```
